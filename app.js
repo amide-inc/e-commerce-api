@@ -30,9 +30,6 @@ app.use('/product', productRoute);
 app.use('/item', itemsRoute);
 app.use('/payment', paymentRoute);
 
-app.get('/richa', (req, res) => {
-    res.send("richa");
-});
 app.listen(port, () => {
     console.log("sever is ready at port" + port);
 });
