@@ -10,7 +10,7 @@ router.get('/profile', (req, res) => {
 
 
 router.post('/login', (req, res) => {
-    User.findOne({ email: req.body.email })
+    User.findOne({ _id: req.body.email })
         .exec()
         .then((result) => {
             if (result) {
