@@ -2,21 +2,36 @@ const { get } = require('./product-route');
 
 const router = require('express').Router();
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const checkAuth = require('../middleware/check-auth');
 
-router.get('/profile', (req, res) => {
-    //
+router.get('/profile', checkAuth, (req, res) => {
+  
+  User.findOne({_id: req.userData.userId})
+      .then((result) => {
+          res.json({success: true, data: result});
+      })
+      .catch((err) => {
+          res.json({success : false, message: 'Server error'});
+      })
 });
 
 
 router.post('/login', (req, res) => {
-    User.findOne({ _id: req.body.email })
+    User.findOne({ email: req.body.email })
         .exec()
         .then((result) => {
             if (result) {
                bcrypt.compare(req.body.password, result.password, function(err, b) {
                    if(b) {
-                       return res.json({success: true, data: result});
+                     jwt.sign({userId: result._id},  'aminkey', function(e, token) {
+                         if(e) {
+                            return res.json({success: false, message: 'Token issue'})
+                         }else{
+                           return res.json({success: true, token: token})
+                         }
+                     });
                    }else {
                     return res.json({success: false, message: 'Password not matched'});
                    }
