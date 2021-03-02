@@ -1,5 +1,3 @@
-const { get } = require('./auth-route');
-
 const router = require('express').Router();
 const Product = require('../models/product');
 const checkAuth = require('../middleware/check-auth');

@@ -7,8 +7,8 @@ const itemSchema = new Schema({
     thumbnail: {type: String, required: true},
     description :{type : String, required : true},
     price : {type: Number, required: true},
-    product: {type: mongoose.Types.ObjectId},
-    userId : {type: mongoose.Types.ObjectId , required : true}
+    product: {type: mongoose.Types.ObjectId, ref: 'Product'},
+    userId : {type: mongoose.Types.ObjectId , ref: 'User', required : true, }
 });
 
 module.exports = mongoose.model('Item', itemSchema);
