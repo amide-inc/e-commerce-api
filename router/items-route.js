@@ -58,7 +58,7 @@ router.get('/:id', (req ,res) => {
 })
 
 router.patch('/:id' , (req, res) => {
-  //home work
+   //home work
 });
 
 router.delete('/:id', (req, res) => {
